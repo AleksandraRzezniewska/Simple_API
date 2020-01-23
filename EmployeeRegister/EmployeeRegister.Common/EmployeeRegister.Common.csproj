@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Configuration\ApplicationConfiguration.cs~RF237e69a4.TMP" />
+  </ItemGroup>
+
 </Project>

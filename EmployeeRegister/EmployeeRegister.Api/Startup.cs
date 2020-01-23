@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeRegister.Common.Configuration;
+using EmployeeRegister.Common.Interfaces;
+using EmployeeRegister.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,8 @@ namespace EmployeeRegister.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.Configure<ApplicationConfiguration>(Configuration)
+                .AddSingleton<IDbContextFactory<EmployeeRegisterDbContext>, EmployeeRegisterDbContextFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
