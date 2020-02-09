@@ -16,5 +16,8 @@ namespace EmployeeRegister.Common.Interfaces
             where T : class, IEntity;
 
         Task Save();
+
+        Task Delete<T>(T entity)
+            where T : class, IEntity;
     }
 }

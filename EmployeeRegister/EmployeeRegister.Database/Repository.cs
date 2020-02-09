@@ -51,5 +51,11 @@ namespace EmployeeRegister.Database
         {
             return await Context.Set<T>().FindAsync(id);
         }
+
+        public async Task Delete<T>(T entity)
+            where T : class, IEntity
+        {
+            Context.Set<T>().Remove(entity);
+        }
     }
 }

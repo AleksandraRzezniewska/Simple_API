@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Api", "EmployeeRegister.Api\EmployeeRegister.Api.csproj", "{138D9205-021F-4C46-8A82-2F03AC730DE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeRegister.Api", "EmployeeRegister.Api\EmployeeRegister.Api.csproj", "{138D9205-021F-4C46-8A82-2F03AC730DE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Database", "EmployeeRegister.Database\EmployeeRegister.Database.csproj", "{E4DC8CEE-9426-4775-88E7-5851F02F6D7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeRegister.Database", "EmployeeRegister.Database\EmployeeRegister.Database.csproj", "{E4DC8CEE-9426-4775-88E7-5851F02F6D7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Common", "EmployeeRegister.Common\EmployeeRegister.Common.csproj", "{CBB6B676-B91B-48C1-8581-8A3BB9DF628B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeRegister.Common", "EmployeeRegister.Common\EmployeeRegister.Common.csproj", "{CBB6B676-B91B-48C1-8581-8A3BB9DF628B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Models", "EmployeeRegister.Models\EmployeeRegister.Models.csproj", "{054047BE-99AD-4A17-A8DC-49A5DCC5D153}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.ViewModels", "EmployeeRegister.ViewModels\EmployeeRegister.ViewModels.csproj", "{DB3132D5-0540-4E81-96D5-6FB8D0D0EB9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeRegister.Models", "EmployeeRegister.Models\EmployeeRegister.Models.csproj", "{054047BE-99AD-4A17-A8DC-49A5DCC5D153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{054047BE-99AD-4A17-A8DC-49A5DCC5D153}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{054047BE-99AD-4A17-A8DC-49A5DCC5D153}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{054047BE-99AD-4A17-A8DC-49A5DCC5D153}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB3132D5-0540-4E81-96D5-6FB8D0D0EB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB3132D5-0540-4E81-96D5-6FB8D0D0EB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB3132D5-0540-4E81-96D5-6FB8D0D0EB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB3132D5-0540-4E81-96D5-6FB8D0D0EB9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
