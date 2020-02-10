@@ -23,27 +23,27 @@ namespace EmployeeRegister.Api.Controllers
             _mapper = mapper;
         }
 
-        public UserView MapUserAndUserView(UserView user)
+        public UserView MapUserAndUserView(UserView userView)
         {
-            return _mapper.Map<UserView>(user);
+            return _mapper.Map<UserView>(userView);
         }
 
         [HttpPost]
-        public async Task<IResult> CreateUser(UserView user)
+        public async Task<IResult> CreateUser(UserView userView)
         {
             var userService = new UserService(_repository);
-            var model = MapUserAndUserView(user); 
+            var user = MapUserAndUserView(userView); 
             
-            return await userService.AddUser(model);
+            return await userService.AddUser(user);
         }
 
         [HttpPut]
-        public async Task<IResult> UpdateUser(UserView user)
+        public async Task<IResult> UpdateUser(UserView userView)
         {
             var userService = new UserService(_repository);
-            var model = MapUserAndUserView(user);
+            var user = MapUserAndUserView(userView);
 
-            return await userService.UpdateUser(model);
+            return await userService.UpdateUser(user);
         }
 
         [HttpGet]
@@ -59,12 +59,12 @@ namespace EmployeeRegister.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IResult> DeleteUser(UserView user)
+        public async Task<IResult> DeleteUser(UserView userView)
         {
             var userService = new UserService(_repository);
-            var model = MapUserAndUserView(user);
+            var user = MapUserAndUserView(userView);
 
-            return await userService.DeleteUser(model);
+            return await userService.DeleteUser(user);
         }
     }
 }
