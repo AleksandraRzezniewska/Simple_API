@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using EmployeeRegister.Api.Services;
+using EmployeeRegister.Api.Interfaces;
 using EmployeeRegister.Api.ViewModels;
 using EmployeeRegister.Common.Interfaces;
 using EmployeeRegister.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace EmployeeRegister.Api.Controllers
     public class UserController
     {
         private readonly IRepository _repository;
+        private readonly IUserService _service;
         private readonly IMapper _mapper;
 
-        public UserController(IRepository repository, IMapper mapper)
+        public UserController(IRepository repository, IUserService service, IMapper mapper)
         {
             _repository = repository;
+            _service = service;
             _mapper = mapper;
         }
 
@@ -31,19 +34,17 @@ namespace EmployeeRegister.Api.Controllers
         [HttpPost]
         public async Task<IResult> CreateUser(UserView userView)
         {
-            var userService = new UserService(_repository);
             var user = MapUserAndUserView(userView); 
             
-            return await userService.AddUser(user);
+            return await _service.AddUser(user);
         }
 
         [HttpPut]
         public async Task<IResult> UpdateUser(UserView userView)
         {
-            var userService = new UserService(_repository);
             var user = MapUserAndUserView(userView);
 
-            return await userService.UpdateUser(user);
+            return await _service.UpdateUser(user);
         }
 
         [HttpGet]
@@ -61,10 +62,9 @@ namespace EmployeeRegister.Api.Controllers
         [HttpDelete]
         public async Task<IResult> DeleteUser(UserView userView)
         {
-            var userService = new UserService(_repository);
             var user = MapUserAndUserView(userView);
 
-            return await userService.DeleteUser(user);
+            return await _service.DeleteUser(user);
         }
     }
 }
