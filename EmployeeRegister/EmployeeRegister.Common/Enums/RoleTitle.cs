@@ -1,6 +1,6 @@
 ﻿namespace EmployeeRegister.Common.Enums
 {
-    public enum Role
+    public enum RoleTitle
     {
         Admin,
         Pm,

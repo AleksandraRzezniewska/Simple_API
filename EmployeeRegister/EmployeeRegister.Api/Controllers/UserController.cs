@@ -13,7 +13,7 @@ namespace EmployeeRegister.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController
+    public class UserController : ControllerBase
     {
         private readonly IRepository _repository;
         private readonly IUserService _service;
