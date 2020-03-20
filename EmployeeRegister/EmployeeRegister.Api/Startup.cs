@@ -1,8 +1,11 @@
 using AutoMapper;
+using EmployeeRegister.Api.Interfaces;
 using EmployeeRegister.Api.Mapping;
+using EmployeeRegister.Api.Services;
 using EmployeeRegister.Common.Configuration;
 using EmployeeRegister.Common.Interfaces;
 using EmployeeRegister.Database;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +30,16 @@ namespace EmployeeRegister.Api
             services.Configure<ApplicationConfiguration>(Configuration)
                 .AddSingleton<IDbContextFactory<EmployeeRegisterDbContext>, EmployeeRegisterDbContextFactory>()
                 .AddSingleton<IRepository, Repository>()
+                .AddSingleton<IUserService, UserService>()
                 .AddAutoMapper(typeof(UserProfile));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Audience = "http://localhost:5001/";
+                    options.Authority = "http://localhost:5000/";
+                    options.RequireHttpsMetadata = false;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

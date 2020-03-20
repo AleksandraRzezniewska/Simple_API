@@ -1,4 +1,5 @@
-﻿using EmployeeRegister.Api.ViewModels;
+﻿using EmployeeRegister.Api.Interfaces;
+using EmployeeRegister.Api.ViewModels;
 using EmployeeRegister.Common;
 using EmployeeRegister.Common.Interfaces;
 using EmployeeRegister.Models;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeRegister.Api.Services
 {
-    public class UserService : IService
+    public class UserService : IUserService
     {
         private readonly IRepository _repository;
 
