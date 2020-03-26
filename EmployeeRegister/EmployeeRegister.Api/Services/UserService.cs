@@ -1,9 +1,16 @@
 ﻿using EmployeeRegister.Api.Interfaces;
 using EmployeeRegister.Api.ViewModels;
 using EmployeeRegister.Common;
+using EmployeeRegister.Common.Configuration;
 using EmployeeRegister.Common.Interfaces;
 using EmployeeRegister.Models;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EmployeeRegister.Api.Services
@@ -11,15 +18,46 @@ namespace EmployeeRegister.Api.Services
     public class UserService : IUserService
     {
         private readonly IRepository _repository;
-
-        public UserService(IRepository repository)
+        private readonly AppSettings _appSettings;
+             
+        public UserService(IRepository repository, IOptions<AppSettings> appSettings)
         {
             _repository = repository;
+            _appSettings = appSettings.Value;
+        }
+
+        public async Task<UserResult> Authenticate(string email, string password)
+        {
+            var users = await _repository.GetAll<User>();
+
+            var authenticatedUser = users.SingleOrDefault(x => x.Email == email && x.Password == password);
+
+            if (authenticatedUser == null)
+            {
+                throw new NullReferenceException("Username or Password is incorrect");
+            }
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, authenticatedUser.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            authenticatedUser.Token = tokenHandler.WriteToken(token);
+            await _repository.Save();
+
+            return new UserResult(authenticatedUser.Id, authenticatedUser.Token);
         }
 
         public async Task<UserResult> AddUser(UserView user)
         {
-            var newUser = new User(user.FirstName, user.LastName, user.Email);
+            var newUser = new User(user.FirstName, user.LastName, user.Email, user.Password);
 
             await _repository.Add(newUser);
             await _repository.Save();
@@ -36,6 +74,7 @@ namespace EmployeeRegister.Api.Services
                 userToUpdate.FirstName = user.FirstName;
                 userToUpdate.LastName = user.LastName;
                 userToUpdate.Email = user.Email;
+                userToUpdate.Password = user.Password;
                 await _repository.Save();
             }
             else

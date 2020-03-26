@@ -4,14 +4,16 @@ using EmployeeRegister.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeRegister.Database.Migrations
 {
     [DbContext(typeof(EmployeeRegisterDbContext))]
-    partial class EmployeeRegisterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200325235807_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

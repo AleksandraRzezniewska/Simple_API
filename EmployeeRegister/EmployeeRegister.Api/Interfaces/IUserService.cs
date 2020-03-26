@@ -10,5 +10,6 @@ namespace EmployeeRegister.Api.Interfaces
         Task<UserResult> AddUser(UserView user);
         Task<UserResult> UpdateUser(UserView user);
         Task<UserResult> DeleteUser(UserView user);
+        Task<UserResult> Authenticate(string email, string password);
     }
 }

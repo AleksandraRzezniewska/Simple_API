@@ -3,7 +3,6 @@
     public enum RoleTitle
     {
         Admin,
-        Pm,
         User,
     }
 }

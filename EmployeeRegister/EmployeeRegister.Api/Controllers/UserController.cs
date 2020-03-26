@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeRegister.Api.Interfaces;
 using EmployeeRegister.Api.ViewModels;
+using EmployeeRegister.Common;
 using EmployeeRegister.Common.Interfaces;
 using EmployeeRegister.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeRegister.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
@@ -31,6 +33,14 @@ namespace EmployeeRegister.Api.Controllers
             return _mapper.Map<UserView>(userView);
         }
 
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IResult> Authenticate(AuthenticateModel authenticateUser) 
+        {
+            return await _service.Authenticate(authenticateUser.Email, authenticateUser.Password);
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IResult> CreateUser(UserView userView)
         {
@@ -47,6 +57,7 @@ namespace EmployeeRegister.Api.Controllers
             return await _service.UpdateUser(user);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<User>> GetAllUsers()
         {
@@ -59,6 +70,7 @@ namespace EmployeeRegister.Api.Controllers
             return await _repository.GetById<User>(id);
         }
 
+        [AllowAnonymous]
         [HttpDelete]
         public async Task<IResult> DeleteUser(UserView userView)
         {
