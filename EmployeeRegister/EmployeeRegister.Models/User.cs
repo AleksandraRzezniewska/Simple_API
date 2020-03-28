@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace EmployeeRegister.Models
 {
@@ -9,8 +11,7 @@ namespace EmployeeRegister.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Token { get; set; }
-
-        public IList<UserRole> UserRoles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
 
         public User(string firstName, string lastName, string email, string password)
         {

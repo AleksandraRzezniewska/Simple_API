@@ -9,5 +9,11 @@ namespace EmployeeRegister.Models
 
         public Guid RoleId { get; set; }
         public Role Role { get; set; }
+
+        public UserRole(Guid userId, Guid roleId)
+        {
+            UserId = userId;
+            RoleId = roleId;
+        }
     }
 }

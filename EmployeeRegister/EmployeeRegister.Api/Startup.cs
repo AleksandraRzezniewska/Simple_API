@@ -33,10 +33,15 @@ namespace EmployeeRegister.Api
                 .AddSingleton<IDbContextFactory<EmployeeRegisterDbContext>, EmployeeRegisterDbContextFactory>()
                 .AddSingleton<IRepository, Repository>()
                 .AddSingleton<IUserService, UserService>()
+                .AddSingleton<IRoleService, RoleService>()
                 .AddAutoMapper(typeof(UserProfile));
 
-            //var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+           
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(x =>
             {
@@ -50,7 +55,7 @@ namespace EmployeeRegister.Api
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AppSettings:Secret"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };

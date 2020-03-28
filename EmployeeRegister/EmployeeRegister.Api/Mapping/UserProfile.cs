@@ -9,6 +9,7 @@ namespace EmployeeRegister.Api.Mapping
         public UserProfile()
         {
             CreateMap<User, UserView>();
+            CreateMap<Role, RoleView>();
         }
     }
 }

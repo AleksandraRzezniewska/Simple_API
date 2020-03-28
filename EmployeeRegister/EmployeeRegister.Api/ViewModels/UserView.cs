@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EmployeeRegister.Models;
+using System;
+using System.Collections.Generic;
 
 namespace EmployeeRegister.Api.ViewModels
 {
@@ -9,6 +11,6 @@ namespace EmployeeRegister.Api.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Token { get; set; }
+        public ICollection<Guid> RoleId { get; set; }
     }
 }

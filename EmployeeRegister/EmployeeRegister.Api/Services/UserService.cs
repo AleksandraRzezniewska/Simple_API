@@ -7,6 +7,7 @@ using EmployeeRegister.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -43,21 +44,30 @@ namespace EmployeeRegister.Api.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, authenticatedUser.Id.ToString())
+                    new Claim(ClaimTypes.Name, authenticatedUser.Id.ToString()),
+                    new Claim(ClaimTypes.Role, authenticatedUser.UserRoles.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             authenticatedUser.Token = tokenHandler.WriteToken(token);
-            await _repository.Save();
-
+            
             return new UserResult(authenticatedUser.Id, authenticatedUser.Token);
         }
 
         public async Task<UserResult> AddUser(UserView user)
         {
             var newUser = new User(user.FirstName, user.LastName, user.Email, user.Password);
+            var userRoleList = new List<UserRole>();
+
+            foreach (var i in user.RoleId)
+            {
+                var newUserRoles = new UserRole(newUser.Id, i);
+                userRoleList.Add(newUserRoles);
+            }
+
+            newUser.UserRoles = userRoleList;
 
             await _repository.Add(newUser);
             await _repository.Save();

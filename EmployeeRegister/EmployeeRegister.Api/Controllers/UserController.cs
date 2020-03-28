@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeRegister.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
@@ -34,7 +34,7 @@ namespace EmployeeRegister.Api.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("{authenticate}")]
         public async Task<IResult> Authenticate(AuthenticateModel authenticateUser) 
         {
             return await _service.Authenticate(authenticateUser.Email, authenticateUser.Password);
