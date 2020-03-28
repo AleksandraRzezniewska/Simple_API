@@ -63,7 +63,7 @@ namespace EmployeeRegister.Api.Services
 
             foreach (var i in user.RoleId)
             {
-                var newUserRoles = new UserRole(newUser.Id, i);
+                var newUserRoles = new UserRole(){ RoleId = i};
                 userRoleList.Add(newUserRoles);
             }
 

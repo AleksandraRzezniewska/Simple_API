@@ -64,6 +64,12 @@ namespace EmployeeRegister.Api.Controllers
             return await _repository.GetAll<User>();
         } 
 
+        [HttpGet("UserRole")]
+        public async Task<IEnumerable<UserRole>> GetAllUserRoles()
+        {
+            return await _repository.GetAll<UserRole>();
+        }
+
         [HttpGet("{id}")]
         public async Task<User> GetById(Guid id)
         {
